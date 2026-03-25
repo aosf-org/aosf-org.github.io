@@ -3,2072 +3,1103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AOSF — Agentic Open Source Foundation</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <title>AOSF — The Agentic Open Source Foundation</title>
+    <meta name="description" content="Building trust and governance for the autonomous intelligence era. AOSF is the Linux Foundation for the Claw Stack.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #0f1b3d;
-            --navy-light: #1a2a5e;
-            --navy-dark: #0a1229;
-            --blue: #2563eb;
-            --blue-light: #3b82f6;
-            --blue-pale: #dbeafe;
-            --blue-wash: #eff6ff;
-            --slate: #334155;
-            --slate-light: #64748b;
-            --slate-pale: #94a3b8;
+            --navy: #0f172a;
+            --navy-light: #1e293b;
+            --navy-lighter: #334155;
+            --blue: #3b82f6;
+            --blue-light: #60a5fa;
+            --cyan: #06b6d4;
+            --purple: #8b5cf6;
+            --orange: #f97316;
+            --green: #10b981;
+            --white: #ffffff;
             --gray-50: #f8fafc;
             --gray-100: #f1f5f9;
             --gray-200: #e2e8f0;
-            --gray-300: #cbd5e1;
-            --white: #ffffff;
-            --green: #059669;
-            --green-light: #d1fae5;
-            --red: #dc2626;
-            --red-light: #fee2e2;
-            --amber: #d97706;
-            --amber-light: #fef3c7;
-            --purple: #7c3aed;
-            --purple-light: #ede9fe;
-            --cyan: #0891b2;
-            --cyan-light: #cffafe;
-            --indigo: #4f46e5;
-            --violet: #8b5cf6;
-            --fuchsia: #c026d3;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--white);
-            color: var(--slate);
-            line-height: 1.65;
+            color: var(--gray-700);
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
-        /* ===== ANIMATIONS ===== */
-        @keyframes gradientShift {
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--navy);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 2rem; }
+        h4 { font-size: 1.5rem; }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .wide-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            text-decoration: none;
+        }
+
+        nav .logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--white);
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-            50% { box-shadow: 0 0 0 12px rgba(99, 102, 241, 0); }
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes borderGlow {
-            0%, 100% { border-color: rgba(99, 102, 241, 0.3); }
-            50% { border-color: rgba(139, 92, 246, 0.6); }
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-        .reveal-delay-5 { transition-delay: 0.5s; }
-
-        /* ===== HERO ===== */
-        .hero {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 20%, #3730a3 40%, #4338ca 60%, #6366f1 80%, #818cf8 100%);
-            background-size: 300% 300%;
-            animation: gradientShift 12s ease infinite;
-            color: white;
-            padding: 6rem 2rem 5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; right: -50%; bottom: -50%;
-            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 80%, rgba(192, 38, 211, 0.08) 0%, transparent 50%);
-            pointer-events: none;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            pointer-events: none;
-        }
-
-        .hero-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-org-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1.4rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
-            letter-spacing: 0.05em;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            animation: fadeIn 1s ease;
-        }
-
         .hero h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 3.8rem;
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.2rem;
-            color: white;
-            animation: fadeInUp 0.8s ease;
+            color: var(--white);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
         }
 
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.85);
-            max-width: 650px;
-            margin: 0 auto 2.5rem;
-            font-weight: 300;
-            line-height: 1.7;
-            animation: fadeInUp 0.8s ease 0.2s both;
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
         }
 
-        .hero-cta {
+        .hero .cta-buttons {
             display: flex;
+            gap: 1.5rem;
             justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 3.5rem;
-            animation: fadeInUp 0.8s ease 0.4s both;
+            animation: fadeInUp 1s ease 0.4s both;
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Buttons */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.8rem;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            font-family: 'DM Sans', sans-serif;
-            cursor: pointer;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-white {
-            background: white;
-            color: var(--indigo);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .btn-white:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .btn-outline {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 1.5px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(10px);
-        }
-        .btn-outline:hover {
-            border-color: white;
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
-        }
-
-        .btn-gradient {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
-            color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-        }
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
-        }
-
-        .btn-gradient-outline {
-            background: transparent;
-            color: var(--indigo);
-            border: 2px solid transparent;
-            background-image: linear-gradient(white, white), linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-        }
-        .btn-gradient-outline:hover {
-            background-image: linear-gradient(var(--gray-50), var(--gray-50)), linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
-        }
-
-        .btn-light {
-            background: var(--gray-100);
-            color: var(--slate);
-            border: 1px solid var(--gray-200);
-        }
-        .btn-light:hover {
-            background: var(--gray-200);
-            transform: translateY(-1px);
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3.5rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .hero-stat {
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-stat::after {
-            content: '';
-            position: absolute;
-            right: -1.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 40px;
-            background: rgba(255,255,255,0.15);
-        }
-        .hero-stat:last-child::after { display: none; }
-
-        .hero-stat-value {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.2rem;
-            background: linear-gradient(135deg, #fff 0%, #c7d2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-stat-label {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.6);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-top: 0.3rem;
-        }
-
-        /* ===== NAV ===== */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(226,232,240,0.8);
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 0;
-            overflow-x: auto;
-            padding: 0 2rem;
-        }
-
-        .nav-btn {
-            padding: 1rem 1.35rem;
-            background: none;
-            border: none;
-            color: var(--slate-light);
-            cursor: pointer;
-            font-size: 0.88rem;
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 2.5px solid transparent;
             transition: all 0.3s;
-            font-family: 'DM Sans', sans-serif;
-            position: relative;
+            border: 2px solid transparent;
         }
 
-        .nav-btn:hover { color: var(--indigo); }
-        .nav-btn.active {
-            color: var(--indigo);
-            border-bottom-color: var(--indigo);
-        }
-
-        /* ===== CONTAINER ===== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3.5rem 2rem;
-        }
-
-        .section {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .section.active {
-            display: block;
-            opacity: 1;
-        }
-
-        /* ===== GRADIENT TEXT ===== */
-        .gradient-text {
-            background: linear-gradient(135deg, #4f46e5, #7c3aed, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ===== SECTION HEADERS ===== */
-        .section-header {
-            margin-bottom: 2.5rem;
-        }
-
-        .section-header h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.2rem;
-            font-weight: 400;
-            margin-bottom: 0.6rem;
-            background: linear-gradient(135deg, #1e1b4b, #4f46e5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-header p {
-            color: var(--slate-light);
-            font-size: 1.08rem;
-            max-width: 700px;
-            line-height: 1.7;
-        }
-
-        /* ===== MISSION BLOCK ===== */
-        .mission-block {
-            background: linear-gradient(135deg, rgba(238, 242, 255, 0.7) 0%, rgba(224, 231, 255, 0.5) 100%);
-            border: 1px solid rgba(165, 180, 252, 0.3);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mission-block::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa, #6366f1);
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-        }
-
-        .mission-block h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.4rem;
-            color: var(--indigo);
-            margin-bottom: 0.75rem;
-        }
-
-        .mission-block p {
-            color: var(--slate);
-            font-size: 1.02rem;
-            line-height: 1.75;
-        }
-
-        /* ===== OVERVIEW GRID ===== */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .overview-card {
+        .btn-primary {
             background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 16px;
-            padding: 1.75rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+            color: var(--purple);
         }
 
-        .overview-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
-        .overview-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.12), 0 4px 12px rgba(0,0,0,0.04);
-            border-color: rgba(165, 180, 252, 0.4);
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
         }
 
-        .overview-card:hover::before { opacity: 1; }
-
-        .overview-card .oc-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            transition: transform 0.3s;
-        }
-
-        .overview-card:hover .oc-icon { transform: scale(1.1); }
-
-        .overview-card h4 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.4rem;
-        }
-
-        .overview-card p {
-            font-size: 0.9rem;
-            color: var(--slate-light);
-        }
-
-        .overview-card .card-detail {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
-            opacity: 0;
-            font-size: 0.82rem;
-            color: var(--slate-pale);
-            margin-top: 0;
-            padding-top: 0;
-            border-top: 0px solid transparent;
-        }
-
-        .overview-card:hover .card-detail {
-            max-height: 80px;
-            opacity: 1;
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        /* ===== CALLOUT ===== */
-        .callout {
-            background: linear-gradient(135deg, var(--gray-50) 0%, rgba(238,242,255,0.3) 100%);
-            border: 1px solid var(--gray-200);
-            border-radius: 16px;
-            padding: 1.75rem;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
-        .callout::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 2rem; right: 2rem;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(99,102,241,0.2), transparent);
-        }
-
-        .callout h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .callout p {
-            color: var(--slate-light);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .callout code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85em;
-            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1));
-            color: var(--indigo);
-            padding: 0.15rem 0.5rem;
-            border-radius: 5px;
-            border: 1px solid rgba(99,102,241,0.15);
-        }
-
-        /* ===== CHART CARD ===== */
-        .chart-card {
+        .btn-secondary:hover {
             background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: box-shadow 0.3s;
+            color: var(--purple);
         }
 
-        .chart-card:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-        }
-
-        .chart-card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 1.25rem;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 320px;
-        }
-
-        /* ===== CARDS GRID ===== */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
+        /* Cards */
         .card {
             background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #6366f1, #8b5cf6, #a78bfa);
-            opacity: 0;
-            transition: opacity 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid var(--gray-200);
         }
 
         .card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 16px 48px rgba(99, 102, 241, 0.1), 0 4px 12px rgba(0,0,0,0.04);
-            border-color: rgba(165, 180, 252, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
         }
-
-        .card:hover::before { opacity: 1; }
 
         .card-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.25rem;
-            transition: transform 0.3s;
-        }
-
-        .card:hover .card-icon { transform: scale(1.1) rotate(-3deg); }
-
-        .card h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.6rem;
-        }
-
-        .card p {
-            font-size: 0.92rem;
-            color: var(--slate-light);
-            line-height: 1.65;
-        }
-
-        .card ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 1rem;
-        }
-
-        .card ul li {
-            padding: 0.3rem 0;
-            color: var(--slate);
-            font-size: 0.88rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.6rem;
-        }
-
-        .card ul li::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-top: 0.45rem;
-        }
-
-        /* ===== QUALITY TIERS ===== */
-        .tiers-pipeline {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            margin: 2rem 0;
-            overflow-x: auto;
-        }
-
-        .tier-node {
-            flex: 1;
-            min-width: 180px;
-            text-align: center;
-        }
-
-        .tier-box {
-            padding: 1.5rem 1rem;
-            border-radius: 16px;
-            border: 2px solid;
-            background: var(--white);
-            height: 100%;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .tier-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .tier-box h4 {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-        }
-
-        .tier-box p {
-            font-size: 0.78rem;
-            color: var(--slate-light);
-            line-height: 1.5;
-        }
-
-        .tier-box .tier-badge {
-            display: inline-block;
-            padding: 0.15rem 0.65rem;
-            border-radius: 50px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 0.5rem;
-        }
-
-        .tier-experimental .tier-box { border-color: #fecaca; }
-        .tier-experimental .tier-badge { background: var(--red-light); color: var(--red); }
-        .tier-experimental h4 { color: var(--red); }
-
-        .tier-validated .tier-box { border-color: #fde68a; }
-        .tier-validated .tier-badge { background: var(--amber-light); color: var(--amber); }
-        .tier-validated h4 { color: var(--amber); }
-
-        .tier-production .tier-box { border-color: #a7f3d0; }
-        .tier-production .tier-badge { background: var(--green-light); color: var(--green); }
-        .tier-production h4 { color: var(--green); }
-
-        .tier-enterprise .tier-box { border-color: rgba(165,180,252,0.5); }
-        .tier-enterprise .tier-badge { background: rgba(238,242,255,0.8); color: var(--indigo); }
-        .tier-enterprise h4 { color: var(--indigo); }
-
-        .tier-arrow {
-            flex-shrink: 0;
-            width: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-300);
-            font-size: 1.4rem;
-        }
-
-        /* ===== GAP GRID ===== */
-        .gap-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        .gap-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 16px;
-            padding: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .gap-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
-
-        .gap-card h4 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .gap-card .gap-missing {
-            font-size: 0.85rem;
-            color: var(--red);
-            margin-bottom: 0.35rem;
-            padding: 0.4rem 0.75rem;
-            background: var(--red-light);
-            border-radius: 8px;
-        }
-
-        .gap-card .gap-answer {
-            font-size: 0.85rem;
-            color: var(--green);
-            padding: 0.4rem 0.75rem;
-            background: var(--green-light);
-            border-radius: 8px;
-        }
-
-        /* ===== COMPARISON TABLE ===== */
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: 16px;
-            border: 1px solid var(--gray-200);
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88rem;
-        }
-
-        thead th {
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-            color: var(--navy);
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 2px solid var(--gray-200);
-            background: var(--gray-50);
-            white-space: nowrap;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid var(--gray-100);
-            transition: background 0.2s;
-        }
-
-        tbody tr:hover { background: rgba(238,242,255,0.3); }
-        tbody tr:last-child { border-bottom: none; }
-
-        td { padding: 0.85rem 1rem; white-space: nowrap; }
-
-        .comparison-table th, .comparison-table td { text-align: center; }
-        .comparison-table td:first-child, .comparison-table th:first-child { text-align: left; }
-
-        .comparison-table th:last-child { background: linear-gradient(135deg, rgba(238,242,255,0.8), rgba(224,231,255,0.6)); }
-        .comparison-table td:last-child { background: rgba(238,242,255,0.4); }
-
-        .check { color: var(--green); font-weight: 700; }
-        .cross { color: var(--gray-300); }
-        .partial { color: var(--amber); }
-
-        /* ===== PROVENANCE ===== */
-        .prov-flow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            margin: 2.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .prov-flow-node {
-            background: var(--white);
-            border: 2px solid var(--gray-200);
-            border-radius: 16px;
-            padding: 1.5rem 1.25rem;
-            text-align: center;
-            min-width: 140px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .prov-flow-node::after {
-            content: attr(data-detail);
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100%);
-            background: var(--navy);
-            color: white;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            font-size: 0.72rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s;
-            z-index: 10;
-        }
-
-        .prov-flow-node:hover {
-            border-color: var(--indigo);
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.15);
-            z-index: 5;
-        }
-
-        .prov-flow-node:hover::after {
-            opacity: 1;
-            bottom: -12px;
-        }
-
-        .prov-flow-node .pfn-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            transition: transform 0.3s;
-        }
-
-        .prov-flow-node:hover .pfn-icon { transform: scale(1.15); }
-
-        .prov-flow-node .pfn-label { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
-        .prov-flow-node .pfn-sub { font-size: 0.72rem; color: var(--slate-pale); margin-top: 0.15rem; }
-
-        .prov-flow-arrow {
-            font-size: 1.2rem;
-            color: var(--indigo);
-            padding: 0 0.5rem;
-            opacity: 0.4;
-        }
-
-        .provenance-mockup {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            border: 1px solid rgba(99,102,241,0.2);
-        }
-
-        .provenance-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 1.25rem;
-            background: rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .provenance-header .ph-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .provenance-header .ph-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            color: rgba(255,255,255,0.4);
-            margin-left: 0.5rem;
-        }
-
-        .provenance-body {
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.82rem;
-            line-height: 1.9;
-            color: #e5e7eb;
-        }
-
-        .prov-key { color: #a5b4fc; }
-        .prov-str { color: #86efac; }
-        .prov-num { color: #fcd34d; }
-        .prov-bool { color: #fb923c; }
-        .prov-bracket { color: #94a3b8; }
-
-        .prov-line {
-            display: flex;
-            gap: 0.5rem;
-            transition: background 0.2s;
-            padding: 0 0.5rem;
-            border-radius: 4px;
-        }
-
-        .prov-line:hover { background: rgba(255,255,255,0.04); }
-
-        .prov-fields {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .prov-field-card {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
+            width: 60px;
+            height: 60px;
             border-radius: 12px;
-            padding: 1.25rem;
-            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .prov-field-card:hover {
-            border-color: rgba(165,180,252,0.4);
-            box-shadow: 0 4px 15px rgba(99,102,241,0.08);
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            align-items: start;
         }
 
-        .prov-field-card h4 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--indigo);
-            margin-bottom: 0.4rem;
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
         }
 
-        .prov-field-card p {
-            font-size: 0.88rem;
-            color: var(--slate-light);
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
-        /* ===== INVOLVE ===== */
-        .involve-grid {
+        /* Specific Sections */
+        #vision {
+            background: var(--gray-50);
+        }
+
+        #vision h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .vision-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .vision-content img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        #infographic {
+            text-align: center;
+        }
+
+        #infographic img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        /* Evolution Timeline */
+        .evolution-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .involve-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .involve-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .involve-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 16px 48px rgba(99, 102, 241, 0.1), 0 4px 12px rgba(0,0,0,0.04);
-            border-color: rgba(165, 180, 252, 0.4);
-        }
-
-        .involve-card:hover::before { opacity: 1; }
-
-        .involve-card .ic-icon {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            transition: transform 0.3s;
-        }
-
-        .involve-card:hover .ic-icon { transform: scale(1.1); }
-
-        .involve-card h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .involve-card p {
-            font-size: 0.92rem;
-            color: var(--slate-light);
-        }
-
-        .involve-card ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 0.75rem;
-        }
-
-        .involve-card ul li {
-            padding: 0.3rem 0;
-            color: var(--slate);
-            font-size: 0.85rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-        }
-
-        .involve-card ul li::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-top: 0.5rem;
-        }
-
-        /* ===== LINK ROW ===== */
-        .link-row {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .link-card {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            color: var(--navy);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .link-card:hover {
-            border-color: rgba(165,180,252,0.4);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .link-card .lc-icon { font-size: 1.4rem; transition: transform 0.3s; }
-        .link-card:hover .lc-icon { transform: scale(1.15); }
-        .link-card .lc-text { display: flex; flex-direction: column; }
-        .link-card .lc-title { font-weight: 600; font-size: 0.9rem; }
-        .link-card .lc-desc { font-size: 0.75rem; color: var(--slate-pale); }
-
-        /* ===== CTA BLOCK ===== */
-        .cta-block {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
-            background-size: 200% 200%;
-            animation: gradientShift 8s ease infinite;
-            border-radius: 20px;
-            padding: 3.5rem;
-            text-align: center;
-            color: white;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-block::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; right: -50%; bottom: -50%;
-            background: radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .cta-block > * { position: relative; z-index: 1; }
-
-        .cta-block h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.7rem;
-            font-weight: 400;
-            margin-bottom: 0.75rem;
-        }
-
-        .cta-block p {
-            color: rgba(255,255,255,0.8);
-            font-size: 1rem;
-            max-width: 550px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .cta-block .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-block .btn-white {
-            animation: pulse 3s infinite;
-        }
-
-        /* ===== AGENTIC BANNER ===== */
-        .agentic-banner {
-            background: linear-gradient(135deg, rgba(209, 250, 229, 0.6) 0%, rgba(167, 243, 208, 0.3) 100%);
-            border: 1px solid rgba(167, 243, 208, 0.5);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .agentic-banner h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--green);
-            margin-bottom: 0.5rem;
-        }
-
-        .agentic-banner p {
-            color: var(--slate);
-            font-size: 0.92rem;
-            max-width: 550px;
-            margin: 0 auto;
-        }
-
-        /* ===== HIGHLIGHT BOX ===== */
-        .highlight-box {
-            padding: 2rem;
-            border-radius: 16px;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .highlight-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 4px;
-            height: 100%;
-        }
-
-        .highlight-box h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .highlight-box p {
-            font-size: 0.92rem;
-            line-height: 1.7;
-        }
-
-        .highlight-box.blue {
-            background: linear-gradient(135deg, rgba(238,242,255,0.6) 0%, rgba(224,231,255,0.3) 100%);
-            border: 1px solid rgba(165,180,252,0.3);
-        }
-        .highlight-box.blue::before { background: linear-gradient(180deg, #6366f1, #8b5cf6); }
-        .highlight-box.blue h3 { color: var(--indigo); }
-        .highlight-box.blue p { color: var(--slate); }
-
-        .highlight-box.green {
-            background: linear-gradient(135deg, rgba(209,250,229,0.5) 0%, rgba(167,243,208,0.2) 100%);
-            border: 1px solid rgba(167,243,208,0.4);
-        }
-        .highlight-box.green::before { background: linear-gradient(180deg, #059669, #10b981); }
-        .highlight-box.green h3 { color: var(--green); }
-        .highlight-box.green p { color: var(--slate); }
-
-        /* ===== SECTION DIVIDER ===== */
-        .section-wash {
-            background: linear-gradient(180deg, var(--white) 0%, rgba(238,242,255,0.15) 50%, var(--white) 100%);
-            margin: 0 -2rem;
-            padding: 0 2rem;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            color: rgba(255,255,255,0.7);
-            text-align: center;
-            padding: 3.5rem 2rem;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa, #6366f1);
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-        }
-
-        footer strong { color: white; }
-
-        footer .footer-links {
-            display: flex;
-            justify-content: center;
             gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .era-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s;
+        }
+
+        .era-card:hover {
+            border-color: var(--blue);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .era-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .era-1 { background: #dbeafe; color: #1e40af; }
+        .era-2 { background: #e9d5ff; color: #6b21a8; }
+        .era-3 { background: #fef3c7; color: #92400e; }
+
+        /* Stack Comparison */
+        .stack-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stack-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            border: 2px solid var(--gray-200);
+        }
+
+        .stack-card h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .stack-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .stack-layer {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .stack-layer.runtime { border-color: #3b82f6; }
+        .stack-layer.data { border-color: #8b5cf6; }
+        .stack-layer.logic { border-color: #f59e0b; }
+
+        /* Architecture */
+        .architecture-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .architecture-table th,
+        .architecture-table td {
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .architecture-table th {
+            background: var(--gray-50);
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .architecture-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Media Section */
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .media-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--gray-200);
+        }
+
+        .media-card h4 {
+            margin-bottom: 1rem;
+        }
+
+        .media-card video,
+        .media-card audio {
+            width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .media-card a {
+            display: inline-block;
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
             margin-top: 1rem;
-            flex-wrap: wrap;
+        }
+
+        .media-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        footer h4 {
+            color: var(--white);
+            margin-bottom: 1rem;
         }
 
         footer a {
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            font-size: 0.88rem;
-            transition: color 0.3s;
+            display: block;
+            margin-bottom: 0.75rem;
+            transition: color 0.2s;
         }
 
-        footer a:hover { color: #a5b4fc; }
-
-        footer .footer-badge {
-            margin-top: 1.5rem;
-            padding: 0.5rem 1.2rem;
-            background: rgba(99,102,241,0.1);
-            border: 1px solid rgba(99,102,241,0.2);
-            border-radius: 50px;
-            display: inline-block;
-            font-size: 0.75rem;
-            color: rgba(165,180,252,0.7);
+        footer a:hover {
+            color: var(--white);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 900px) {
-            .hero h1 { font-size: 2.4rem; }
-            .hero-subtitle { font-size: 1rem; }
-            .hero-stats { gap: 1.5rem; }
-            .hero-stat::after { display: none; }
-            .overview-grid { grid-template-columns: 1fr 1fr; }
-            .involve-grid { grid-template-columns: 1fr; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .tiers-pipeline { flex-direction: column; align-items: stretch; }
-            .tier-arrow { transform: rotate(90deg); width: auto; padding: 0.5rem 0; }
-            .prov-flow { flex-direction: column; }
-            .prov-flow-arrow { transform: rotate(90deg); padding: 0.3rem 0; }
-            .link-row { flex-direction: column; }
+        footer .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
         }
 
-        @media (max-width: 600px) {
-            .hero { padding: 3.5rem 1.5rem 3rem; }
-            .container { padding: 2.5rem 1.25rem; }
-            .overview-grid { grid-template-columns: 1fr; }
-            .gap-grid { grid-template-columns: 1fr; }
-            .prov-fields { grid-template-columns: 1fr; }
-            .section-header h2 { font-size: 1.7rem; }
-            .hero-stats { gap: 1rem; }
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitle { font-size: 1.25rem; }
+            .grid-2, .grid-3, .grid-4, .evolution-grid, .stack-comparison, .media-grid, .vision-content {
+                grid-template-columns: 1fr;
+            }
+            footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            section { padding: 3rem 0; }
+            .container, .wide-container { padding: 0 1rem; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .btn { width: 100%; text-align: center; }
+            footer .container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-
-<!-- HERO -->
-<header class="hero">
-    <div class="hero-inner">
-        <div class="hero-org-badge">Open Source Foundation · Est. 2026</div>
-        <h1>Agentic Open Source Foundation</h1>
-        <p class="hero-subtitle">
-            Neutral, transparent governance for AI-generated open source software — ensuring quality, security, and ethical standards for the vibe coding era.
-        </p>
-        <div class="hero-cta">
-            <a href="https://github.com/aosf-org" target="_blank" class="btn btn-white">View on GitHub</a>
-            <a href="#" class="btn btn-outline" onclick="document.querySelectorAll('.nav-btn')[4].click(); return false;">Get Involved</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo"><span>AOSF</span></a>
+            <ul>
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#evolution">Evolution</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#initiatives">Initiatives</a></li>
+                <li><a href="#media">Media</a></li>
+                <li><a href="#governance">Governance</a></li>
+            </ul>
         </div>
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <div class="hero-stat-value" data-count="45" data-suffix="%">0%</div>
-                <div class="hero-stat-label">AI Code Has Vulns</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-value" data-count="60" data-suffix="K+" data-prefix="">0</div>
-                <div class="hero-stat-label">AGENTS.md Projects</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-value" data-count="1" data-suffix="B+">0</div>
-                <div class="hero-stat-label">Lines to Rewrite</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-value" data-count="10" data-suffix="+">0</div>
-                <div class="hero-stat-label">OSS Models Missing</div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>The Agentic Open Source Foundation</h1>
+            <p class="subtitle">Building trust and governance for the autonomous intelligence era</p>
+            <p style="font-size: 1.25rem; opacity: 0.9; max-width: 800px; margin: 0 auto 3rem;">If LAMP made the web possible, AOSF makes autonomous intelligence trustworthy.</p>
+            <div class="cta-buttons">
+                <a href="#vision" class="btn btn-primary">Learn More</a>
+                <a href="#initiatives" class="btn btn-secondary">Our Initiatives</a>
             </div>
         </div>
-    </div>
-</header>
+    </section>
 
-<!-- NAV -->
-<nav>
-    <div class="nav-inner">
-        <button class="nav-btn active" data-section="overview">Overview</button>
-        <button class="nav-btn" data-section="pillars">Core Functions</button>
-        <button class="nav-btn" data-section="problem">The Problem</button>
-        <button class="nav-btn" data-section="provenance">AI Code Provenance</button>
-        <button class="nav-btn" data-section="involved">Get Involved</button>
-    </div>
-</nav>
-
-<div class="container">
-
-    <!-- TAB: OVERVIEW -->
-    <div class="section active" id="overview">
-        <div class="section-header reveal">
-            <h2>About AOSF</h2>
-            <p>The first open source foundation purpose-built for the age of AI-generated code — bridging the gap between explosive growth and the governance frameworks needed to make it trustworthy.</p>
-        </div>
-
-        <div class="mission-block reveal">
-            <h3>Our Mission</h3>
-            <p>AOSF is an agentic-native foundation that uses AI agents for its own operations while hosting, validating, and stewarding the next generation of AI-created open source projects. We provide the governance, security validation, and ethical frameworks the industry needs as AI-generated code becomes mainstream.</p>
-        </div>
-
-        <div class="overview-grid">
-            <div class="overview-card reveal reveal-delay-1">
-                <div class="oc-icon" style="background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.1));">📦</div>
-                <h4>Project Repository</h4>
-                <p>Curated home for AI-generated open source projects with automated quality tiering</p>
-                <div class="card-detail">First-of-its-kind hosting with AI provenance tracking built in.</div>
-            </div>
-            <div class="overview-card reveal reveal-delay-2">
-                <div class="oc-icon" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.08));">🛡️</div>
-                <h4>Security Validation</h4>
-                <p>Automated SAST/DAST scanning for every hosted project submission</p>
-                <div class="card-detail">Catch vulnerabilities before they reach production.</div>
-            </div>
-            <div class="overview-card reveal reveal-delay-3">
-                <div class="oc-icon" style="background: linear-gradient(135deg, rgba(217,119,6,0.12), rgba(245,158,11,0.08));">🦀</div>
-                <h4>Rust Migration</h4>
-                <p>AI-assisted rewrites from C/C++ to memory-safe Rust at scale</p>
-                <div class="card-detail">Targeting 1B+ lines of critical infrastructure code.</div>
-            </div>
-            <div class="overview-card reveal reveal-delay-1">
-                <div class="oc-icon" style="background: linear-gradient(135deg, rgba(8,145,178,0.12), rgba(6,182,212,0.08));">🤖</div>
-                <h4>Agentic Operations</h4>
-                <p>Agent-assisted reviews, automated docs, and transparent audit trails</p>
-                <div class="card-detail">AI-first governance with human oversight at every step.</div>
-            </div>
-            <div class="overview-card reveal reveal-delay-2">
-                <div class="oc-icon" style="background: linear-gradient(135deg, rgba(5,150,105,0.12), rgba(16,185,129,0.08));">⚖️</div>
-                <h4>Ethical Standards</h4>
-                <p>Attribution, licensing, and human-in-the-loop frameworks for AI code</p>
-                <div class="card-detail">Setting the standard for responsible AI development.</div>
-            </div>
-            <div class="overview-card reveal reveal-delay-3">
-                <div class="oc-icon" style="background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(79,70,229,0.08));">🏆</div>
-                <h4>CELLO Leaderboard</h4>
-                <p>Open-source LLM code evaluation with fully reproducible methodology</p>
-                <div class="card-detail">100% open models, 100% open tools, 100% reproducible.</div>
-            </div>
-        </div>
-
-        <div class="callout reveal">
-            <h3>Why Now?</h3>
-            <p>AI-generated code is no longer a novelty — it's mainstream. Over 60,000 projects already include <code>AGENTS.md</code>, signaling a new era of AI-native development. Yet nearly half of AI-generated code contains security vulnerabilities, and existing foundations weren't built for this reality. AOSF fills the gap — purpose-built for the age of vibe coding.</p>
-        </div>
-
-        <div class="chart-card reveal">
-            <h3>AI Code Landscape — Coverage Gaps</h3>
-            <div class="chart-container">
-                <canvas id="overviewChart"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAB: CORE FUNCTIONS -->
-    <div class="section" id="pillars">
-        <div class="section-header reveal">
-            <h2>Five Core Functions</h2>
-            <p>AOSF is built on five interconnected pillars that together provide comprehensive governance for AI-generated open source software.</p>
-        </div>
-
-        <div class="cards-grid">
-            <div class="card reveal reveal-delay-1">
-                <div class="card-icon" style="background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.1));">📦</div>
-                <h3>Vibe-Coded Project Repository</h3>
-                <p>The first curated home for AI-generated open source projects with automated security scanning, AI provenance tracking, and quality tiering.</p>
-                <ul>
-                    <li>Automated SAST/DAST security scanning on submission</li>
-                    <li>AI provenance metadata tracked for every contribution</li>
-                    <li>Quality tiers from Experimental to Enterprise-Certified</li>
-                    <li>Community-driven review and promotion pipeline</li>
-                </ul>
-            </div>
-            <div class="card reveal reveal-delay-2">
-                <div class="card-icon" style="background: linear-gradient(135deg, rgba(217,119,6,0.12), rgba(245,158,11,0.08));">🦀</div>
-                <h3>Rust Migration Initiative</h3>
-                <p>AI-assisted translation of critical C/C++ infrastructure to memory-safe Rust. Over 1 billion lines of code need rewriting — AI can accelerate this by orders of magnitude.</p>
-                <ul>
-                    <li>Priority queue: coreutils, networking, crypto libraries</li>
-                    <li>AI-assisted translation with human review</li>
-                    <li>Automated testing and equivalence verification</li>
-                    <li>Collaborative effort with the Rust community</li>
-                </ul>
-            </div>
-            <div class="card reveal reveal-delay-3">
-                <div class="card-icon" style="background: linear-gradient(135deg, rgba(8,145,178,0.12), rgba(6,182,212,0.08));">🤖</div>
-                <h3>Agentic-Native Operations</h3>
-                <p>AOSF practices what it preaches — using AI agents for its own governance, creating transparent audit trails for every decision.</p>
-                <ul>
-                    <li>Agent-assisted code review for all submissions</li>
-                    <li>Automated documentation generation and maintenance</li>
-                    <li>Transparent audit trails with human oversight</li>
-                    <li>DAO-hybrid governance model for decision-making</li>
-                </ul>
-            </div>
-            <div class="card reveal reveal-delay-1">
-                <div class="card-icon" style="background: linear-gradient(135deg, rgba(5,150,105,0.12), rgba(16,185,129,0.08));">⚖️</div>
-                <h3>Ethical AI Development Standards</h3>
-                <p>No existing framework addresses the unique ethical challenges of AI-assisted development. AOSF creates the standards the industry needs.</p>
-                <ul>
-                    <li>Attribution standards for AI-generated contributions</li>
-                    <li>Licensing frameworks adapted for AI code generation</li>
-                    <li>Human-in-the-loop requirements for critical decisions</li>
-                    <li>Transparent disclosure of AI involvement in projects</li>
-                </ul>
-            </div>
-            <div class="card reveal reveal-delay-2">
-                <div class="card-icon" style="background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(79,70,229,0.08));">🏆</div>
-                <h3>CELLO Leaderboard</h3>
-                <p>The first fully open-source LLM code evaluation benchmark — 100% open models, 100% open tooling, fully reproducible methodology.</p>
-                <ul>
-                    <li>Evaluates only open-source models (Qwen, DeepSeek, StarCoder, CodeLlama)</li>
-                    <li>Uses only OSI-approved tools (Semgrep, ESLint, PMD)</li>
-                    <li>7 evaluation dimensions across 10,000+ test cases</li>
-                    <li>Fully reproducible — all data and scripts on GitHub</li>
-                </ul>
-                <div style="margin-top:1.25rem;">
-                    <a href="https://aosf-org.github.io/cello" target="_blank" class="btn btn-gradient-outline" style="font-size:0.85rem; padding:0.5rem 1.25rem;">View CELLO Leaderboard →</a>
+    <!-- Vision -->
+    <section id="vision">
+        <div class="container">
+            <h2>The Linux Foundation for the Claw Stack</h2>
+            <div class="vision-content">
+                <div>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                        AOSF governs the layers LAMP never needed: <strong>intent, agents, and economic coordination</strong>. We're building the trust framework for AI factories producing tokens, autonomous systems shipping code, and a new economy where software uses software.
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8;">
+                        We're not building tools for humans. We're building the systems that tools use — <strong>the governance layer for autonomous intelligence</strong>.
+                    </p>
+                </div>
+                <div>
+                    <img src="media/aosf-infographic-clean.png" alt="The Agentic Revolution Infographic">
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="callout reveal">
-            <h3>Quality Tier Pipeline</h3>
-            <p>Every project hosted on AOSF progresses through quality tiers based on security, testing, documentation, and community validation.</p>
-        </div>
-
-        <div class="tiers-pipeline reveal">
-            <div class="tier-node tier-experimental">
-                <div class="tier-box">
-                    <div class="tier-badge">TIER 1</div>
-                    <h4>Experimental</h4>
-                    <p>Initial submission. Basic scanning passed. No security guarantees.</p>
+    <!-- Core Insight -->
+    <section id="insight" style="background: var(--navy); color: var(--white); text-align: center;">
+        <div class="container">
+            <h2 style="color: var(--white);">Core Insight: The Shift in Who We Serve</h2>
+            <div class="stack-comparison" style="margin-top: 4rem;">
+                <div class="stack-card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                    <h4 style="color: var(--white);">LAMP Served Humans</h4>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                        Tools designed to empower people with direct control and insight into digital systems.
+                    </p>
+                    <div style="text-align: center; font-size: 3rem; opacity: 0.5;">👤</div>
                 </div>
-            </div>
-            <div class="tier-arrow">→</div>
-            <div class="tier-node tier-validated">
-                <div class="tier-box">
-                    <div class="tier-badge">TIER 2</div>
-                    <h4>Validated</h4>
-                    <p>SAST/DAST passed. Provenance verified. Community reviewed.</p>
-                </div>
-            </div>
-            <div class="tier-arrow">→</div>
-            <div class="tier-node tier-production">
-                <div class="tier-box">
-                    <div class="tier-badge">TIER 3</div>
-                    <h4>Production-Ready</h4>
-                    <p>Full test coverage. Security audit passed. Docs complete.</p>
-                </div>
-            </div>
-            <div class="tier-arrow">→</div>
-            <div class="tier-node tier-enterprise">
-                <div class="tier-box">
-                    <div class="tier-badge">TIER 4</div>
-                    <h4>Enterprise-Certified</h4>
-                    <p>Compliance verified. SLA commitments. Continuous monitoring.</p>
+                <div class="stack-card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                    <h4 style="color: var(--white);">Claw Serves Agents</h4>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                        Infrastructure for intelligent agents to autonomously decide, collaborate, and execute tasks.
+                    </p>
+                    <div style="text-align: center; font-size: 3rem; opacity: 0.5;">🤖</div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="chart-card reveal">
-            <h3>Quality Tier Requirements</h3>
-            <div class="chart-container">
-                <canvas id="tiersChart"></canvas>
+    <!-- Evolution -->
+    <section id="evolution">
+        <div class="container">
+            <h2 style="text-align: center;">Three Eras of Evolution</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
+                From website explosion to cloud platforms to autonomous intelligence
+            </p>
+            <div class="evolution-grid">
+                <div class="era-card">
+                    <span class="era-badge era-1">Era 1: 2000s</span>
+                    <h3>LAMP Stack</h3>
+                    <h4 style="color: var(--gray-700); font-size: 1.125rem; font-weight: 600;">Website Explosion, Open Source Wins the Web</h4>
+                    <p style="margin-top: 1rem;">
+                        Linux, Apache, MySQL, PHP/Perl/Python powered the internet explosion. Open source became mainstream for building websites and web applications.
+                    </p>
+                </div>
+                <div class="era-card">
+                    <span class="era-badge era-2">Era 2: 2010s</span>
+                    <h3>Cloud/SaaS</h3>
+                    <h4 style="color: var(--gray-700); font-size: 1.125rem; font-weight: 600;">Cloud Native, API Economy, Centralized Platforms</h4>
+                    <p style="margin-top: 1rem;">
+                        Cloud computing and SaaS rise. Cloud-native architecture, API economy, and centralized platforms enable elastic scaling and global connectivity.
+                    </p>
+                </div>
+                <div class="era-card">
+                    <span class="era-badge era-3">Era 3: Now</span>
+                    <h3>Claw Stack</h3>
+                    <h4 style="color: var(--gray-700); font-size: 1.125rem; font-weight: 600;">Agentic Economy, Autonomous Intelligence, Open Governance</h4>
+                    <p style="margin-top: 1rem;">
+                        The era of autonomous agents. Open governance, self-directed intelligence, and decentralized collaboration. From Hands On to Minds Off.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- TAB: THE PROBLEM -->
-    <div class="section" id="problem">
-        <div class="section-header reveal">
-            <h2>The Problem</h2>
-            <p>AI-generated code is growing exponentially, but existing foundations weren't designed for this reality. Here's what's missing — and how AOSF fills the gap.</p>
+    <!-- Claw Stack -->
+    <section id="claw-stack" style="background: var(--gray-50);">
+        <div class="container">
+            <h2 style="text-align: center;">What is the Claw Stack?</h2>
+            <div class="stack-comparison">
+                <div class="stack-card">
+                    <h4>LAMP Stack (2004)</h4>
+                    <div class="stack-layers">
+                        <div class="stack-layer runtime">
+                            <strong>Runtime/OS:</strong> Linux 🐧
+                        </div>
+                        <div class="stack-layer data">
+                            <strong>Data/Reasoning:</strong> MySQL
+                        </div>
+                        <div class="stack-layer logic">
+                            <strong>Logic:</strong> PHP
+                        </div>
+                    </div>
+                </div>
+                <div class="stack-card">
+                    <h4>Claw Stack (2026)</h4>
+                    <div class="stack-layers">
+                        <div class="stack-layer runtime">
+                            <strong>Runtime/OS:</strong> OpenClaw/NemoClaw
+                        </div>
+                        <div class="stack-layer data">
+                            <strong>Data/Reasoning:</strong> Claude/Codex/Gemini
+                        </div>
+                        <div class="stack-layer logic">
+                            <strong>Logic:</strong> Natural-language specs
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="text-align: center; margin-bottom: 2rem;">Claw Stack Layers</h3>
+                <div class="grid-4">
+                    <div class="card">
+                        <div class="card-icon" style="background: #dbeafe; color: #1e40af;">C</div>
+                        <h4>Compute</h4>
+                        <p style="color: var(--gray-700);">GPU/ASIC → Token Production</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">High-performance infrastructure for token generation</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background: #e9d5ff; color: #6b21a8;">L</div>
+                        <h4>Language Models</h4>
+                        <p style="color: var(--gray-700);">Claude, Gemini, Llama → Inference Engine</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">Reasoning and knowledge base</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background: #fef3c7; color: #92400e;">A</div>
+                        <h4>Agents</h4>
+                        <p style="color: var(--gray-700);">OpenClaw Runtime → Execution Unit</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">Task management and specialized execution</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background: #d1fae5; color: #065f46;">W</div>
+                        <h4>Workflow</h4>
+                        <p style="color: var(--gray-700);">Routing Layer → Decision & Coordination</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">Orchestration and process management</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="gap-grid">
-            <div class="gap-card reveal reveal-delay-1">
-                <h4>📦 Project Hosting</h4>
-                <div class="gap-missing">❌ No dedicated home for AI-generated open source projects</div>
-                <div class="gap-answer">✅ AOSF: Vibe-Coded Project Repository with quality tiers</div>
-            </div>
-            <div class="gap-card reveal reveal-delay-2">
-                <h4>🛡️ Security</h4>
-                <div class="gap-missing">❌ 45% of AI-generated code contains vulnerabilities</div>
-                <div class="gap-answer">✅ AOSF: Automated SAST/DAST validation on every submission</div>
-            </div>
-            <div class="gap-card reveal reveal-delay-3">
-                <h4>🏛️ Governance</h4>
-                <div class="gap-missing">❌ Traditional governance doesn't fit agentic development</div>
-                <div class="gap-answer">✅ AOSF: Agentic-native + DAO hybrid governance</div>
-            </div>
-            <div class="gap-card reveal reveal-delay-1">
-                <h4>⚖️ Ethics</h4>
-                <div class="gap-missing">❌ No framework for AI attribution or licensing</div>
-                <div class="gap-answer">✅ AOSF: Ethical AI Development Standards</div>
-            </div>
-            <div class="gap-card reveal reveal-delay-2">
-                <h4>🦀 Memory Safety</h4>
-                <div class="gap-missing">❌ No initiative for AI-assisted rewrites to safe languages</div>
-                <div class="gap-answer">✅ AOSF: Rust Migration Initiative</div>
-            </div>
-            <div class="gap-card reveal reveal-delay-3">
-                <h4>🏆 Model Evaluation</h4>
-                <div class="gap-missing">❌ Existing leaderboards focus on proprietary models</div>
-                <div class="gap-answer">✅ AOSF: CELLO — 100% open source leaderboard</div>
+    <!-- W Layer -->
+    <section id="w-layer">
+        <div class="container">
+            <h2 style="text-align: center;">The W Layer: Strategic Control Point</h2>
+            <p style="text-align: center; font-size: 1.25rem; margin-bottom: 3rem; color: var(--purple); font-weight: 600;">
+                Orchestration is the Kubernetes of the agentic era.<br>
+                <span style="font-size: 1.5rem; color: var(--navy);">Who controls orchestration, controls the economy.</span>
+            </p>
+            <div class="grid-3">
+                <div class="card">
+                    <h4>🎯 Model Selection</h4>
+                    <p>Choose which models run for each task</p>
+                </div>
+                <div class="card">
+                    <h4>⚖️ Cost vs Quality</h4>
+                    <p>Balance performance and resource allocation</p>
+                </div>
+                <div class="card">
+                    <h4>🔀 Token Routing</h4>
+                    <p>Direct token spend across the system</p>
+                </div>
+                <div class="card">
+                    <h4>⚙️ System Behavior</h4>
+                    <p>Define how autonomous systems operate</p>
+                </div>
+                <div class="card">
+                    <h4>🤝 Agent Coordination</h4>
+                    <p>Enable multi-agent collaboration</p>
+                </div>
+                <div class="card">
+                    <h4>📊 Resource Management</h4>
+                    <p>Optimize compute and model utilization</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="callout reveal">
-            <h3>Foundation Coverage Comparison</h3>
-            <p>How existing open source foundations compare across the domains that matter for AI-generated code.</p>
-        </div>
-
-        <div class="table-wrapper reveal">
-            <table class="comparison-table">
+    <!-- Architecture -->
+    <section id="architecture" style="background: var(--gray-50);">
+        <div class="container">
+            <h2 style="text-align: center;">Complete Agent Stack Architecture</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
+                <strong>Key Insight:</strong> Currently there's no Linux Foundation-level organization for the orchestration + governance layer
+            </p>
+            <table class="architecture-table">
                 <thead>
                     <tr>
-                        <th style="text-align:left">Domain</th>
-                        <th>Linux Foundation</th>
-                        <th>Apache</th>
-                        <th>CNCF</th>
-                        <th>OSI</th>
-                        <th>AOSF</th>
+                        <th>Layer</th>
+                        <th>Description</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>AI-Native Project Hosting</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check"><strong>✓</strong></td></tr>
-                    <tr><td>AI Code Security Scanning</td><td class="partial">~</td><td class="cross">✗</td><td class="partial">~</td><td class="cross">✗</td><td class="check"><strong>✓</strong></td></tr>
-                    <tr><td>Agentic Governance</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check"><strong>✓</strong></td></tr>
-                    <tr><td>AI Ethics Framework</td><td class="partial">~</td><td class="cross">✗</td><td class="cross">✗</td><td class="partial">~</td><td class="check"><strong>✓</strong></td></tr>
-                    <tr><td>Memory Safety Initiative</td><td class="partial">~</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check"><strong>✓</strong></td></tr>
-                    <tr><td>OSS Model Evaluation</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check"><strong>✓</strong></td></tr>
-                    <tr><td>AI Code Provenance</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check"><strong>✓</strong></td></tr>
-                    <tr><td>Traditional OSS Governance</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check"><strong>✓</strong></td></tr>
+                    <tr>
+                        <td><strong>Application Layer</strong></td>
+                        <td>Agent-native companies</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td><strong>AOSF Governance Layer</strong></td>
+                        <td><span class="highlight">Open Governance (Currently Blank)</span></td>
+                        <td>🎯 AOSF Target</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td><strong>Orchestration Layer (W)</strong></td>
+                        <td><span class="highlight">Standardization (AOSF Goal)</span></td>
+                        <td>🎯 AOSF Target</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agent Layer (A)</strong></td>
+                        <td>Standard runtime</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Model Layer (L)</strong></td>
+                        <td>Big Tech + Open Source Hybrid</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compute Layer (C)</strong></td>
+                        <td>NVIDIA + ASIC Diversity</td>
+                        <td>✅ Active</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
+    </section>
 
-        <div class="highlight-box blue reveal">
-            <h3>Not a Replacement — An Addition</h3>
-            <p>AOSF doesn't compete with existing foundations — it fills the gaps they weren't designed to address. The Linux Foundation, Apache, CNCF, and OSI do excellent work for traditional open source. But the vibe coding era demands new infrastructure: automated security validation, provenance tracking, ethical frameworks, and governance models that incorporate AI agents as first-class participants.</p>
-        </div>
-
-        <div class="chart-card reveal">
-            <h3>AI-Generated Code Vulnerability Rate by Category</h3>
-            <div class="chart-container">
-                <canvas id="vulnChart"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAB: PROVENANCE -->
-    <div class="section" id="provenance">
-        <div class="section-header reveal">
-            <h2>AI Code Provenance Standard</h2>
-            <p>A machine-readable standard for tracking the origins, review status, and quality of AI-generated code — essential for enterprise trust and compliance.</p>
-        </div>
-
-        <div class="callout reveal">
-            <h3>Provenance Lifecycle</h3>
-            <p>Every piece of AI-generated code gets tracked from generation through deployment.</p>
-        </div>
-
-        <div class="prov-flow reveal">
-            <div class="prov-flow-node" data-detail="Captures model ID, version, and parameters">
-                <div class="pfn-icon">🤖</div>
-                <div class="pfn-label">AI Generation</div>
-                <div class="pfn-sub">Model ID captured</div>
-            </div>
-            <div class="prov-flow-arrow">→</div>
-            <div class="prov-flow-node" data-detail="Semgrep, ESLint, custom SAST rules">
-                <div class="pfn-icon">🔍</div>
-                <div class="pfn-label">Security Scan</div>
-                <div class="pfn-sub">SAST/DAST analysis</div>
-            </div>
-            <div class="prov-flow-arrow">→</div>
-            <div class="prov-flow-node" data-detail="Required human approval checkpoint">
-                <div class="pfn-icon">👤</div>
-                <div class="pfn-label">Human Review</div>
-                <div class="pfn-sub">Reviewer assigned</div>
-            </div>
-            <div class="prov-flow-arrow">→</div>
-            <div class="prov-flow-node" data-detail="Benchmarked across 7 dimensions">
-                <div class="pfn-icon">🏆</div>
-                <div class="pfn-label">CELLO Score</div>
-                <div class="pfn-sub">Quality benchmark</div>
-            </div>
-            <div class="prov-flow-arrow">→</div>
-            <div class="prov-flow-node" data-detail="Immutable, verifiable, machine-readable">
-                <div class="pfn-icon">📋</div>
-                <div class="pfn-label">Provenance Record</div>
-                <div class="pfn-sub">Immutable metadata</div>
-            </div>
-        </div>
-
-        <div class="provenance-mockup reveal">
-            <div class="provenance-header">
-                <div class="ph-dot" style="background:#ef4444;"></div>
-                <div class="ph-dot" style="background:#f59e0b;"></div>
-                <div class="ph-dot" style="background:#10b981;"></div>
-                <span class="ph-title">aosf-provenance.json</span>
-            </div>
-            <div class="provenance-body">
-                <div class="prov-line"><span class="prov-bracket">{</span></div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"schema"</span>: <span class="prov-str">"aosf-provenance/v1"</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"model_id"</span>: <span class="prov-str">"deepseek-coder-v3-236b"</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"generation_date"</span>: <span class="prov-str">"2026-02-03T14:22:00Z"</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"human_reviewer"</span>: <span class="prov-str">"@chris-dev"</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"security_scan"</span>: <span class="prov-bracket">{</span></div>
-                <div class="prov-line" style="padding-left:3rem;"><span class="prov-key">"tool"</span>: <span class="prov-str">"semgrep"</span>, <span class="prov-key">"findings"</span>: <span class="prov-num">0</span>, <span class="prov-key">"passed"</span>: <span class="prov-bool">true</span></div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-bracket">}</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"cello_score"</span>: <span class="prov-num">87.4</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"quality_tier"</span>: <span class="prov-str">"production-ready"</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"license"</span>: <span class="prov-str">"Apache-2.0"</span>,</div>
-                <div class="prov-line" style="padding-left:1.5rem;"><span class="prov-key">"hash"</span>: <span class="prov-str">"sha256:a3f8c1d9e..."</span></div>
-                <div class="prov-line"><span class="prov-bracket">}</span></div>
-            </div>
-        </div>
-
-        <div class="callout reveal">
-            <h3>Provenance Fields</h3>
-            <p>Each field serves a specific purpose in establishing trust and traceability for AI-generated code.</p>
-        </div>
-
-        <div class="prov-fields">
-            <div class="prov-field-card reveal reveal-delay-1"><h4>model_id</h4><p>Identifies the exact AI model and version that generated the code. Critical for reproducibility.</p></div>
-            <div class="prov-field-card reveal reveal-delay-2"><h4>generation_date</h4><p>Timestamp of code generation. Enables tracking of model versions and vulnerability windows.</p></div>
-            <div class="prov-field-card reveal reveal-delay-3"><h4>human_reviewer</h4><p>Identity of the human who reviewed and approved. Ensures accountability and human oversight.</p></div>
-            <div class="prov-field-card reveal reveal-delay-1"><h4>security_scan</h4><p>Complete record of security analysis — tool, version, findings, pass/fail status.</p></div>
-            <div class="prov-field-card reveal reveal-delay-2"><h4>cello_score</h4><p>The model's CELLO benchmark score at generation time. Provides a quality baseline.</p></div>
-            <div class="prov-field-card reveal reveal-delay-3"><h4>quality_tier</h4><p>Current AOSF quality tier — from Experimental to Enterprise-Certified.</p></div>
-        </div>
-
-        <div class="highlight-box green reveal">
-            <h3>Why Provenance Matters</h3>
-            <p>As AI-generated code enters production systems, enterprises need answers: <em>Who generated this? Was it reviewed? Is it secure?</em> The AOSF provenance standard provides machine-readable, verifiable answers — enabling compliance, auditing, and informed decision-making at scale.</p>
-        </div>
-    </div>
-
-    <!-- TAB: GET INVOLVED -->
-    <div class="section" id="involved">
-        <div class="section-header reveal">
-            <h2>Get Involved</h2>
-            <p>AOSF is a community effort. Whether you're a developer, enterprise, or researcher, there's a place for you.</p>
-        </div>
-
-        <div class="involve-grid">
-            <div class="involve-card reveal reveal-delay-1">
-                <div class="ic-icon">👩‍💻</div>
-                <h3>Developers</h3>
-                <p>Build the tools and infrastructure that power the next generation of open source.</p>
-                <ul>
-                    <li>Contribute to CELLO benchmark pipeline</li>
-                    <li>Build security scanning integrations</li>
-                    <li>Help with the Rust migration initiative</li>
-                    <li>Submit your AI-generated projects</li>
-                    <li>Review community submissions</li>
-                </ul>
-            </div>
-            <div class="involve-card reveal reveal-delay-2">
-                <div class="ic-icon">🏢</div>
-                <h3>Enterprises</h3>
-                <p>Shape the standards that will govern AI-generated code in production systems.</p>
-                <ul>
-                    <li>Sponsor provenance standard development</li>
-                    <li>Join governance and standards committees</li>
-                    <li>Contribute enterprise certification use cases</li>
-                    <li>Co-develop ethical AI frameworks</li>
-                    <li>Access Enterprise-Certified project tiers</li>
-                </ul>
-            </div>
-            <div class="involve-card reveal reveal-delay-3">
-                <div class="ic-icon">🔬</div>
-                <h3>Researchers</h3>
-                <p>Advance the science of AI code quality, security, and evaluation.</p>
-                <ul>
-                    <li>Contribute evaluation methodologies to CELLO</li>
-                    <li>Study AI code vulnerability patterns</li>
-                    <li>Research provenance and attribution</li>
-                    <li>Publish through AOSF working groups</li>
-                    <li>Benchmark new open-source models</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="callout reveal"><h3>Quick Links</h3></div>
-
-        <div class="link-row reveal">
-            <a href="https://github.com/aosf-org" target="_blank" class="link-card">
-                <div class="lc-icon">🐙</div>
-                <div class="lc-text">
-                    <span class="lc-title">GitHub</span>
-                    <span class="lc-desc">github.com/aosf-org</span>
+    <!-- Strategic Trinity -->
+    <section id="trinity">
+        <div class="container">
+            <h2 style="text-align: center;">Strategic Trinity</h2>
+            <div class="grid-3">
+                <div class="card" style="border-top: 4px solid var(--green);">
+                    <h3 style="font-size: 3rem; margin-bottom: 0.5rem;">1</h3>
+                    <h4>Production</h4>
+                    <p style="font-weight: 600; color: var(--green);">AI Factories (Jensen Huang/NVIDIA)</p>
+                    <p style="margin-top: 1rem;">Token Generation</p>
+                    <p style="font-size: 2rem; font-weight: 700; margin-top: 1rem; color: var(--green);">10T+</p>
+                    <p style="font-size: 0.875rem; opacity: 0.8;">Daily token generation</p>
                 </div>
-            </a>
-            <a href="https://aosf-org.github.io/cello" target="_blank" class="link-card">
-                <div class="lc-icon">🏆</div>
-                <div class="lc-text">
-                    <span class="lc-title">CELLO Leaderboard</span>
-                    <span class="lc-desc">Open-source LLM code evaluation</span>
+                <div class="card" style="border-top: 4px solid var(--blue);">
+                    <h3 style="font-size: 3rem; margin-bottom: 0.5rem;">2</h3>
+                    <h4>Execution</h4>
+                    <p style="font-weight: 600; color: var(--blue);">Claw Stack (Murdock)</p>
+                    <p style="margin-top: 1rem;">Agent Runtime</p>
+                    <p style="font-size: 2rem; font-weight: 700; margin-top: 1rem; color: var(--blue);">99.99%</p>
+                    <p style="font-size: 0.875rem; opacity: 0.8;">Execution accuracy</p>
                 </div>
-            </a>
-            <a href="https://github.com/aosf-org/aosf/tree/main/research" target="_blank" class="link-card">
-                <div class="lc-icon">📖</div>
-                <div class="lc-text">
-                    <span class="lc-title">Documentation</span>
-                    <span class="lc-desc">Guides, standards, and references</span>
+                <div class="card" style="border-top: 4px solid var(--purple);">
+                    <h3 style="font-size: 3rem; margin-bottom: 0.5rem;">3</h3>
+                    <h4>Governance</h4>
+                    <p style="font-weight: 600; color: var(--purple);">AOSF</p>
+                    <p style="margin-top: 1rem;">Trust, Identity, Economy</p>
+                    <p style="font-size: 2rem; font-weight: 700; margin-top: 1rem; color: var(--purple);">100+</p>
+                    <p style="font-size: 0.875rem; opacity: 0.8;">Open source project partners</p>
                 </div>
-            </a>
+            </div>
         </div>
+    </section>
 
-        <div class="callout reveal">
-            <h3>Research</h3>
-            <p>In-depth research documents backing AOSF's mission and positioning.</p>
+    <!-- Initiatives -->
+    <section id="initiatives" style="background: var(--gray-50);">
+        <div class="container">
+            <h2 style="text-align: center;">AOSF Strategic Initiatives</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
+                Five core pillars for governing autonomous intelligence
+            </p>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon" style="background: #dbeafe; color: #1e40af;">🔐</div>
+                    <h4>(A) Open Agent Identity</h4>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">OAuth for Agents</p>
+                    <p>Unified identity authentication for secure agent interoperability</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #e9d5ff; color: #6b21a8;">📋</div>
+                    <h4>(B) Open Spec Standard</h4>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">HTML for Intent</p>
+                    <p>Universal intent description language for cross-platform understanding</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #fef3c7; color: #92400e;">⚙️</div>
+                    <h4>(C) Orchestration Standard</h4>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Kubernetes for Agent Routing</p>
+                    <p>Intelligent agent routing and scheduling based on proven principles</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #d1fae5; color: #065f46;">🪙</div>
+                    <h4>(D) Open Token Initiative</h4>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">AI Compute Public Pool</p>
+                    <p>Fair allocation of AI compute resources for open source, research, and education</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #fce7f3; color: #9f1239;">🏪</div>
+                    <h4>(E) Agent Capability Market</h4>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Capability Exchange</p>
+                    <p>Marketplace for agent capabilities and services, not just software</p>
+                </div>
+                <div class="card" style="border: 2px dashed var(--gray-300);">
+                    <div class="card-icon" style="background: var(--gray-100); color: var(--gray-700);">🔮</div>
+                    <h4>More Coming</h4>
+                    <p>Additional initiatives for Dark Factory governance, hardware abstraction, and provenance systems</p>
+                </div>
+            </div>
         </div>
-        <div class="link-row reveal">
-            <a href="https://github.com/aosf-org/aosf/blob/main/research/agentic-landscape.md" target="_blank" class="link-card">
-                <div class="lc-icon">🌐</div>
-                <div class="lc-text">
-                    <span class="lc-title">Agentic AI & Vibe Coding Landscape</span>
-                    <span class="lc-desc">Market analysis, key players, protocols, governance gaps</span>
-                </div>
-            </a>
-            <a href="https://github.com/aosf-org/aosf/blob/main/research/cello-research.md" target="_blank" class="link-card">
-                <div class="lc-icon">🔬</div>
-                <div class="lc-text">
-                    <span class="lc-title">CELLO Research</span>
-                    <span class="lc-desc">Methodology and model evaluation analysis</span>
-                </div>
-            </a>
-            <a href="https://github.com/aosf-org/aosf/blob/main/research/openclaw-architecture.md" target="_blank" class="link-card">
-                <div class="lc-icon">🏗️</div>
-                <div class="lc-text">
-                    <span class="lc-title">OpenClaw Architecture</span>
-                    <span class="lc-desc">Technical analysis of the AGENTS.md platform</span>
-                </div>
-            </a>
-        </div>
+    </section>
 
-        <div class="cta-block reveal">
-            <h3>Ready to Build the Future of Open Source?</h3>
-            <p>Join the first foundation purpose-built for the age of AI-generated code.</p>
+    <!-- Open Token -->
+    <section id="open-token">
+        <div class="container">
+            <h2 style="text-align: center;">Open Token: Shared AI Compute Public Pool</h2>
+            <div class="grid-2" style="align-items: center;">
+                <div>
+                    <h3 style="color: var(--red); margin-bottom: 1rem;">❌ Not a Cryptocurrency</h3>
+                    <p style="font-size: 1.125rem; margin-bottom: 2rem;">Not a speculative investment tool.</p>
+
+                    <h3 style="color: var(--green); margin-bottom: 1rem;">✅ What It Is</h3>
+                    <ul style="font-size: 1.125rem; line-height: 2;">
+                        <li>Enterprises donate AI compute credits (tokens)</li>
+                        <li>Public pool distributes to open source, research, education</li>
+                        <li>Like electricity metering for AI compute</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card" style="background: var(--gradient-primary); color: var(--white);">
+                        <h3 style="color: var(--white); margin-bottom: 2rem;">Goals</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div>
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
+                                <h4 style="color: var(--white);">Accessibility</h4>
+                                <p style="opacity: 0.9;">More people gain access to AI compute</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">♻️</div>
+                                <h4 style="color: var(--white);">Sustainability</h4>
+                                <p style="opacity: 0.9;">Healthy ecosystem growth</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                                <h4 style="color: var(--white);">Growth</h4>
+                                <p style="opacity: 0.9;">Support innovation and experimentation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin-top: 4rem; margin-bottom: 2rem;">Open Token = Public Infrastructure for AI Compute</h3>
+            <div class="grid-4">
+                <div class="card">
+                    <h4>📊 Not Trading</h4>
+                    <p>It's metering</p>
+                </div>
+                <div class="card">
+                    <h4>💰 Pricing + Settlement</h4>
+                    <p>Market-based valuation</p>
+                </div>
+                <div class="card">
+                    <h4>🏗️ Public Utility</h4>
+                    <p>Infrastructure foundation</p>
+                </div>
+                <div class="card">
+                    <h4>⚡ Like Electricity</h4>
+                    <p>Universal compute access</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dark Factory -->
+    <section id="dark-factory" style="background: var(--navy); color: var(--white);">
+        <div class="container">
+            <h2 style="color: var(--white); text-align: center;">Dark Factory Governance Challenges</h2>
+            <p style="text-align: center; font-size: 1.25rem; opacity: 0.9; max-width: 800px; margin: 0 auto 3rem;">
+                L5 Autonomous: Humans define <strong>what</strong>, agents decide <strong>how</strong>, systems optimize execution
+            </p>
+            <div class="grid-2" style="align-items: start;">
+                <div class="card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                    <h3 style="color: var(--white);">Specification-Driven Systems</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                        <div>
+                            <p style="font-size: 3rem; font-weight: 700; color: var(--orange);">100%</p>
+                            <p style="opacity: 0.8;">No human-written code</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 3rem; font-weight: 700; color: var(--red);">0%</p>
+                            <p style="opacity: 0.8;">No human review</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 2rem; font-size: 1.25rem; color: var(--orange);">
+                        <strong>Core Question: Who guarantees trust?</strong>
+                    </p>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                    <h3 style="color: var(--white);">AOSF's Role</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
+                        <div>
+                            <h4 style="color: var(--cyan);">1. Spec Governance</h4>
+                            <p style="opacity: 0.8;">Version control and validation of intent</p>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--cyan);">2. Agent Trust & Identity</h4>
+                            <p style="opacity: 0.8;">Authentication and capability verification</p>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--cyan);">3. Provenance</h4>
+                            <p style="opacity: 0.8;">Who generated what, full traceability</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- From SaaS to Agent Economy -->
+    <section id="economy">
+        <div class="container">
+            <h2 style="text-align: center;">From SaaS to Agent-Native Economy</h2>
+            <div class="stack-comparison">
+                <div class="stack-card">
+                    <h4 style="color: var(--red);">❌ Old Model: Humans Use Software</h4>
+                    <div style="margin-top: 2rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">SaaS Platform</p>
+                        <p style="opacity: 0.7;">→ User Subscription</p>
+                        <p style="opacity: 0.7;">→ User Seat</p>
+                        <p style="opacity: 0.7;">→ API Calls</p>
+                    </div>
+                </div>
+                <div class="stack-card">
+                    <h4 style="color: var(--green);">✅ New Reality: Software Uses Software (via Agents)</h4>
+                    <div style="margin-top: 2rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">AI-Native Economy</p>
+                        <p style="opacity: 0.7;">→ Agent Capability</p>
+                        <p style="opacity: 0.7;">→ Agent Instance</p>
+                        <p style="opacity: 0.7;">→ Autonomous Tasks</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3>Emerging Organizations</h3>
+                <p style="font-size: 1.25rem; margin-top: 1rem;">
+                    • AI-Native Companies &nbsp;&nbsp;
+                    • Autonomous Enterprises &nbsp;&nbsp;
+                    • Machine-to-Machine Economy
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Evolution -->
+    <section id="hardware" style="background: var(--gray-50);">
+        <div class="container">
+            <h2 style="text-align: center;">Hardware Evolution & Open Standards</h2>
+            <div class="grid-3" style="margin-top: 3rem;">
+                <div class="card">
+                    <h4>📈 Trend</h4>
+                    <p><strong>GPU →</strong> General Intelligence</p>
+                    <p><strong>ASIC →</strong> Specialized Inference</p>
+                </div>
+                <div class="card" style="border-color: var(--red); border-width: 2px;">
+                    <h4>⚠️ Risk</h4>
+                    <p><strong>Fragmented Ecosystem</strong></p>
+                    <p><strong>Vendor Lock-in</strong></p>
+                </div>
+                <div class="card" style="border-color: var(--green); border-width: 2px;">
+                    <h4>✅ Opportunity</h4>
+                    <p><strong>AOSF defines hardware-agnostic standards</strong></p>
+                </div>
+            </div>
+            <div style="margin-top: 4rem; text-align: center;">
+                <h3>Analogy: Abstraction Layers</h3>
+                <div class="grid-3" style="margin-top: 2rem;">
+                    <div class="card">
+                        <h4>Linux</h4>
+                        <p>Abstracted hardware</p>
+                    </div>
+                    <div class="card">
+                        <h4>Kubernetes</h4>
+                        <p>Abstracted infrastructure</p>
+                    </div>
+                    <div class="card" style="background: var(--gradient-primary); color: var(--white);">
+                        <h4 style="color: var(--white);">AOSF</h4>
+                        <p>Abstracts AI computation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media -->
+    <section id="media">
+        <div class="wide-container">
+            <h2 style="text-align: center;">Media & Resources</h2>
+            <div class="media-grid">
+                <div class="media-card">
+                    <h4>🎥 Video: The Agentic Revolution</h4>
+                    <video controls>
+                        <source src="media/The_Agentic_Revolution.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <a href="media/The_Agentic_Revolution.mp4" download>⬇️ Download Video</a>
+                </div>
+                <div class="media-card">
+                    <h4>🎙️ Audio: Securing Code from the AI Dark Factory</h4>
+                    <audio controls>
+                        <source src="media/Securing_code_from_the_AI_Dark_Factory.m4a" type="audio/mp4">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <a href="media/Securing_code_from_the_AI_Dark_Factory.m4a" download>⬇️ Download Audio</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem; text-align: center;">
+                <h3>Complete Infographic</h3>
+                <img src="media/aosf-infographic-clean.png" alt="The Agentic Revolution: Navigating the $1 Trillion AI Token Economy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); margin-top: 2rem;">
+                <p style="margin-top: 1rem;">
+                    <a href="media/aosf-infographic-clean.png" download style="color: var(--blue); font-weight: 600;">⬇️ Download High-Resolution Infographic</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="governance" style="background: var(--gradient-primary); color: var(--white); text-align: center;">
+        <div class="container">
+            <h2 style="color: var(--white); font-size: 3rem;">Join the Governance Revolution</h2>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 3rem; opacity: 0.95;">
+                AOSF is building the trust layer for autonomous intelligence. We need open source projects, researchers, and enterprises to shape the future together.
+            </p>
             <div class="cta-buttons">
-                <a href="https://github.com/aosf-org" target="_blank" class="btn btn-white">Star on GitHub</a>
-                <a href="https://aosf-org.github.io/cello" target="_blank" class="btn btn-outline">Explore CELLO</a>
+                <a href="mailto:info@aosf.ai" class="btn btn-primary">Get Involved</a>
+                <a href="https://github.com/aosf-org" class="btn btn-secondary">View on GitHub</a>
             </div>
         </div>
+    </section>
 
-        <div class="agentic-banner reveal">
-            <h3>🤖 Built by AI Agents, for AI-Generated Software</h3>
-            <p>AOSF isn't just governing AI-generated code — it's built with AI agents from the ground up. Our operations, documentation, and tooling are agentic-native, with human oversight at every step.</p>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div>
+                <h4>AOSF</h4>
+                <p style="opacity: 0.8; margin-bottom: 1rem;">The Agentic Open Source Foundation</p>
+                <p style="opacity: 0.8;">Building trust and governance for the autonomous intelligence era.</p>
+            </div>
+            <div>
+                <h4>Initiatives</h4>
+                <a href="#initiatives">Open Agent Identity</a>
+                <a href="#initiatives">Open Spec Standard</a>
+                <a href="#initiatives">Orchestration</a>
+                <a href="#open-token">Open Token</a>
+                <a href="#initiatives">Agent Marketplace</a>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <a href="#vision">Vision</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#media">Media</a>
+                <a href="https://github.com/aosf-org">GitHub</a>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <a href="mailto:info@aosf.ai">Email</a>
+                <a href="https://github.com/aosf-org">GitHub Organization</a>
+                <a href="https://aosf-org.github.io/cello">CELLO Project</a>
+            </div>
         </div>
-    </div>
-
-</div>
-
-<!-- FOOTER -->
-<footer>
-    <p><strong>AOSF</strong> — Agentic Open Source Foundation</p>
-    <div class="footer-links">
-        <a href="https://github.com/aosf-org">GitHub</a>
-        <a href="https://aosf-org.github.io/cello">CELLO Leaderboard</a>
-        <a href="https://github.com/aosf-org">Documentation</a>
-    </div>
-    <p style="margin-top:0.75rem; font-size:0.82rem;">Apache 2.0 License · Open Governance</p>
-    <div class="footer-badge">Agentic-Native Foundation · Est. 2026</div>
-</footer>
-
-<script>
-// ===== INTERSECTION OBSERVER FOR REVEAL ANIMATIONS =====
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-function observeReveals() {
-    document.querySelectorAll('.reveal').forEach(el => {
-        revealObserver.observe(el);
-    });
-}
-observeReveals();
-
-// Re-observe when switching tabs
-function triggerReveals() {
-    requestAnimationFrame(() => {
-        document.querySelectorAll('.section.active .reveal').forEach(el => {
-            revealObserver.observe(el);
-            // Force check for already-visible elements
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                el.classList.add('visible');
-            }
-        });
-    });
-}
-
-// ===== COUNTER ANIMATION =====
-function animateCounters() {
-    document.querySelectorAll('.hero-stat-value[data-count]').forEach(el => {
-        const target = parseInt(el.dataset.count);
-        const suffix = el.dataset.suffix || '';
-        const prefix = el.dataset.prefix !== undefined ? el.dataset.prefix : '';
-        const duration = 2000;
-        const start = performance.now();
-
-        function update(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.round(eased * target);
-            el.textContent = prefix + current + suffix;
-            if (progress < 1) requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
-    });
-}
-
-// Run counter animation on load
-setTimeout(animateCounters, 500);
-
-// ===== TAB NAVIGATION =====
-document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Fade out current
-        const currentSection = document.querySelector('.section.active');
-        if (currentSection) {
-            currentSection.style.opacity = '0';
-        }
-
-        setTimeout(() => {
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.section').forEach(s => {
-                s.classList.remove('active');
-                s.style.opacity = '0';
-            });
-            btn.classList.add('active');
-            const newSection = document.getElementById(btn.dataset.section);
-            newSection.classList.add('active');
-
-            // Fade in new
-            requestAnimationFrame(() => {
-                newSection.style.opacity = '1';
-                triggerReveals();
-            });
-
-            if (btn.dataset.section === 'overview') initOverviewChart();
-            if (btn.dataset.section === 'pillars') initTiersChart();
-            if (btn.dataset.section === 'problem') initVulnChart();
-        }, 200);
-    });
-});
-
-// ===== CHART GRADIENT HELPERS =====
-function createGradient(ctx, colors) {
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, colors[0]);
-    gradient.addColorStop(1, colors[1]);
-    return gradient;
-}
-
-// ===== OVERVIEW CHART =====
-let overviewChartInit = false;
-function initOverviewChart() {
-    if (overviewChartInit) return;
-    overviewChartInit = true;
-    const canvas = document.getElementById('overviewChart');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    new Chart(canvas, {
-        type: 'radar',
-        data: {
-            labels: ['Project Hosting', 'Security Scanning', 'Governance', 'Ethics', 'Memory Safety', 'Model Evaluation', 'Code Provenance'],
-            datasets: [
-                {
-                    label: 'Traditional Foundations',
-                    data: [80,30,85,20,25,10,5],
-                    borderColor: '#94a3b8',
-                    backgroundColor: 'rgba(148,163,184,0.06)',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#94a3b8',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2
-                },
-                {
-                    label: 'AOSF',
-                    data: [90,95,90,90,85,95,95],
-                    borderColor: '#6366f1',
-                    backgroundColor: 'rgba(99,102,241,0.08)',
-                    borderWidth: 2.5,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#6366f1',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: { duration: 1500, easing: 'easeOutQuart' },
-            plugins: {
-                legend: {
-                    labels: { color: '#334155', font: { size: 12, family: 'DM Sans' }, usePointStyle: true, pointStyle: 'circle' }
-                }
-            },
-            scales: {
-                r: {
-                    min: 0, max: 100,
-                    grid: { color: 'rgba(0,0,0,0.05)' },
-                    angleLines: { color: 'rgba(0,0,0,0.05)' },
-                    pointLabels: { color: '#64748b', font: { size: 11, family: 'DM Sans' } },
-                    ticks: { display: false }
-                }
-            }
-        }
-    });
-}
-
-// ===== TIERS CHART =====
-let tiersChartInit = false;
-function initTiersChart() {
-    if (tiersChartInit) return;
-    tiersChartInit = true;
-    const canvas = document.getElementById('tiersChart');
-    if (!canvas) return;
-    new Chart(canvas, {
-        type: 'bar',
-        data: {
-            labels: ['Security Scan', 'Test Coverage', 'Documentation', 'Code Review', 'Compliance', 'Monitoring'],
-            datasets: [
-                { label: 'Experimental', data: [30,10,15,0,0,0], backgroundColor: 'rgba(220,38,38,0.15)', borderColor: '#dc2626', borderWidth: 1.5, borderRadius: 6 },
-                { label: 'Validated', data: [70,40,50,60,0,0], backgroundColor: 'rgba(217,119,6,0.15)', borderColor: '#d97706', borderWidth: 1.5, borderRadius: 6 },
-                { label: 'Production-Ready', data: [90,80,85,85,50,60], backgroundColor: 'rgba(5,150,105,0.15)', borderColor: '#059669', borderWidth: 1.5, borderRadius: 6 },
-                { label: 'Enterprise-Certified', data: [98,95,95,95,95,95], backgroundColor: 'rgba(99,102,241,0.15)', borderColor: '#6366f1', borderWidth: 1.5, borderRadius: 6 }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: { duration: 1200, easing: 'easeOutQuart' },
-            plugins: {
-                legend: { labels: { color: '#334155', font: { size: 11, family: 'DM Sans' }, usePointStyle: true, pointStyle: 'circle' } },
-                tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}%` } }
-            },
-            scales: {
-                x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10, family: 'DM Sans' } } },
-                y: { min: 0, max: 100, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#64748b', callback: v => v + '%' }, title: { display: true, text: 'Requirement Level (%)', color: '#64748b', font: { family: 'DM Sans' } } }
-            }
-        }
-    });
-}
-
-// ===== VULN CHART =====
-let vulnChartInit = false;
-function initVulnChart() {
-    if (vulnChartInit) return;
-    vulnChartInit = true;
-    const canvas = document.getElementById('vulnChart');
-    if (!canvas) return;
-    new Chart(canvas, {
-        type: 'bar',
-        data: {
-            labels: ['Injection Flaws', 'Auth Issues', 'Data Exposure', 'Security Misconfig', 'XSS', 'Insecure Deps', 'Buffer Overflows', 'Race Conditions'],
-            datasets: [{
-                label: 'Vulnerability Rate (%)',
-                data: [52,48,45,43,41,39,35,28],
-                backgroundColor: [
-                    'rgba(220,38,38,0.12)', 'rgba(220,38,38,0.1)',
-                    'rgba(217,119,6,0.12)', 'rgba(217,119,6,0.1)',
-                    'rgba(217,119,6,0.08)',
-                    'rgba(99,102,241,0.12)', 'rgba(99,102,241,0.1)', 'rgba(99,102,241,0.08)'
-                ],
-                borderColor: ['#dc2626','#dc2626','#d97706','#d97706','#d97706','#6366f1','#6366f1','#6366f1'],
-                borderWidth: 1.5,
-                borderRadius: 6
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y',
-            animation: { duration: 1200, easing: 'easeOutQuart' },
-            plugins: {
-                legend: { display: false },
-                tooltip: { callbacks: { label: ctx => `${ctx.raw}% affected` } }
-            },
-            scales: {
-                x: { min: 0, max: 60, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#64748b', callback: v => v + '%' } },
-                y: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11, family: 'DM Sans' } } }
-            }
-        }
-    });
-}
-
-// Initialize overview chart on load
-initOverviewChart();
-
-// Initial reveal trigger for active section
-triggerReveals();
-</script>
-
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Agentic Open Source Foundation. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
