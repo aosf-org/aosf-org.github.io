@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AOSF — The Agentic Open Source Foundation</title>
     <meta name="description" content="Building trust and governance for the autonomous intelligence era. The industry-standard foundation for agentic orchestration and coordination.">
+    
+    <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Prefetch -->
+    <link rel="dns-prefetch" href="https://github.com">
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#8b5cf6">
     <style>
         :root {
             --navy: #0f172a;
@@ -26,6 +35,21 @@
             --gray-800: #1f2937;
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            
+            /* Light mode (default) */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--gray-50);
+            --text-primary: var(--gray-700);
+            --text-secondary: var(--navy);
+            --border-color: var(--gray-200);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: var(--navy);
+            --bg-secondary: var(--navy-light);
+            --text-primary: var(--gray-100);
+            --text-secondary: var(--white);
+            --border-color: var(--navy-lighter);
         }
 
         * {
@@ -33,13 +57,18 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--white);
-            color: var(--gray-700);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Typography */
@@ -104,9 +133,14 @@
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
             padding: 1rem 0;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        
+        [data-theme="dark"] nav {
+            background: rgba(15, 23, 42, 0.95);
         }
 
         nav .container {
@@ -328,13 +362,17 @@
 
         /* Cards */
         .card {
-            background: var(--white);
+            background: var(--bg-primary);
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
-            border: 1px solid var(--gray-200);
+            border: 1px solid var(--border-color);
             position: relative;
+        }
+        
+        [data-theme="dark"] .card {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
         .card::before {
@@ -453,6 +491,46 @@
                     rgba(0,0,0,0.03) 10px,
                     rgba(0,0,0,0.03) 11px
                 );
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--purple);
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(139, 92, 246, 0.6);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 768px) {
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.25rem;
+            }
         }
 
         /* Grid Layouts */
@@ -874,6 +952,11 @@
     </style>
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        🌙
+    </button>
+
     <!-- Navigation -->
     <nav>
         <div class="container">
@@ -1622,6 +1705,22 @@
     </footer>
 
     <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        });
+
         // Scroll animation observer
         const observerOptions = {
             threshold: 0.1,
