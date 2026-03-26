@@ -1737,20 +1737,16 @@
 
         // Observe all fade-in elements
         document.addEventListener('DOMContentLoaded', () => {
+            // First, make sure all cards and era-cards are visible by default
+            document.querySelectorAll('.card, .era-card').forEach(el => {
+                if (!el.classList.contains('fade-in')) {
+                    el.style.opacity = '1';
+                }
+            });
+
+            // Then observe elements that already have fade-in class
             const fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
             fadeElements.forEach(el => observer.observe(el));
-
-            // Add fade-in classes to cards
-            document.querySelectorAll('.card').forEach((card, index) => {
-                card.classList.add('fade-in');
-                card.style.transitionDelay = `${index * 0.1}s`;
-            });
-
-            // Add fade-in to era cards
-            document.querySelectorAll('.era-card').forEach((card, index) => {
-                card.classList.add('fade-in');
-                card.style.transitionDelay = `${index * 0.15}s`;
-            });
         });
     </script>
 </body>
