@@ -432,14 +432,17 @@
             background: var(--purple);
             border-radius: 50%;
             animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
         }
 
         @keyframes pulse {
             0%, 100% {
                 opacity: 1;
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
             }
             50% {
-                opacity: 0.5;
+                opacity: 0.7;
+                box-shadow: 0 0 0 4px rgba(139, 92, 246, 0);
             }
         }
 
