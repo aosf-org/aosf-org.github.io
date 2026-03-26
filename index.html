@@ -175,6 +175,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            overflow: hidden;
         }
 
         .hero-video {
@@ -331,14 +332,32 @@
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 12px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--purple), var(--blue));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-            border-color: var(--purple);
+            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.2);
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card-icon {
@@ -386,6 +405,56 @@
             }
         }
 
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Decorative Pattern */
+        .pattern-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0,
+                    transparent 10px,
+                    rgba(0,0,0,0.03) 10px,
+                    rgba(0,0,0,0.03) 11px
+                );
+        }
+
         /* Grid Layouts */
         .grid-2 {
             display: grid;
@@ -418,15 +487,29 @@
 
         .vision-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 5rem;
             align-items: center;
         }
 
         .vision-content img {
             width: 100%;
             border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .vision-content img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 32px rgba(139, 92, 246, 0.3);
+        }
+
+        @media (max-width: 968px) {
+            .vision-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
         }
 
         #infographic {
@@ -753,7 +836,23 @@
 
         /* Responsive */
         @media (max-width: 968px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { 
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .evolution-grid {
+                grid-template-columns: 1fr;
+            }
             .hero .subtitle { font-size: 1.25rem; }
             .grid-2, .grid-3, .grid-4, .evolution-grid, .stack-comparison, .media-grid, .vision-content {
                 grid-template-columns: 1fr;
@@ -1521,14 +1620,39 @@
             <p>&copy; 2026 Agentic Open Source Foundation. All rights reserved.</p>
         </div>
     </footer>
-</body>
-</html>
-       <a href="https://aosf-org.github.io/cello">CELLO Project</a>
-            </div>
-        </div>
-        <div class="container footer-bottom">
-            <p>&copy; 2026 Agentic Open Source Foundation. All rights reserved.</p>
-        </div>
-    </footer>
+
+    <script>
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Add fade-in classes to cards
+            document.querySelectorAll('.card').forEach((card, index) => {
+                card.classList.add('fade-in');
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+
+            // Add fade-in to era cards
+            document.querySelectorAll('.era-card').forEach((card, index) => {
+                card.classList.add('fade-in');
+                card.style.transitionDelay = `${index * 0.15}s`;
+            });
+        });
+    </script>
 </body>
 </html>
