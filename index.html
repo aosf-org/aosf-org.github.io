@@ -652,6 +652,18 @@
             border-radius: 12px;
             padding: 2.5rem;
             border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .stack-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.2);
+            border-color: var(--purple);
+        }
+        
+        [data-theme="dark"] .stack-card:hover {
+            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.4);
         }
 
         .stack-card h4 {
