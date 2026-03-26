@@ -73,7 +73,7 @@
 
         /* Typography */
         h1, h2, h3, h4, h5, h6 {
-            color: var(--navy);
+            color: var(--text-secondary);
             font-weight: 700;
             line-height: 1.0;
             margin-bottom: 1rem;
@@ -171,7 +171,7 @@
 
         nav a {
             text-decoration: none;
-            color: var(--gray-700);
+            color: var(--text-primary);
             font-weight: 500;
             transition: color 0.2s;
             position: relative;
@@ -555,7 +555,7 @@
 
         /* Specific Sections */
         #vision {
-            background: var(--gray-50);
+            background: var(--bg-secondary);
         }
 
         #vision h2 {
@@ -610,10 +610,10 @@
         }
 
         .era-card {
-            background: var(--white);
+            background: var(--bg-primary);
             border-radius: 12px;
             padding: 2rem;
-            border: 2px solid var(--gray-200);
+            border: 2px solid var(--border-color);
             transition: all 0.3s;
         }
 
@@ -645,10 +645,10 @@
         }
 
         .stack-card {
-            background: var(--white);
+            background: var(--bg-primary);
             border-radius: 12px;
             padding: 2.5rem;
-            border: 2px solid var(--gray-200);
+            border: 2px solid var(--border-color);
         }
 
         .stack-card h4 {
@@ -664,7 +664,7 @@
 
         .stack-layer {
             padding: 1rem;
-            background: var(--gray-50);
+            background: var(--bg-secondary);
             border-radius: 8px;
             border-left: 4px solid;
         }
@@ -692,13 +692,13 @@
         }
 
         .architecture-table th {
-            background: var(--gray-50);
+            background: var(--bg-secondary);
             font-weight: 700;
             color: var(--navy);
         }
 
         .architecture-table tr:hover {
-            background: var(--gray-50);
+            background: var(--bg-secondary);
         }
 
         .highlight {
@@ -773,7 +773,7 @@
         }
 
         .media-description {
-            color: var(--gray-700);
+            color: var(--text-primary);
             line-height: 1.6;
             margin-bottom: 1.5rem;
         }
@@ -818,7 +818,7 @@
         }
 
         .share-label {
-            color: var(--gray-700);
+            color: var(--text-primary);
             font-size: 0.875rem;
             font-weight: 500;
         }
@@ -834,7 +834,7 @@
             background: var(--gray-100);
             border: 1px solid var(--gray-200);
             border-radius: 6px;
-            color: var(--gray-700);
+            color: var(--text-primary);
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
@@ -864,7 +864,7 @@
             background: var(--gray-100);
             border: 1px solid var(--gray-200);
             border-radius: 6px;
-            color: var(--gray-700);
+            color: var(--text-primary);
             transition: all 0.2s;
             text-decoration: none;
         }
@@ -1049,14 +1049,14 @@
                 <span>Evolution</span>
             </div>
             <h2 style="text-align: center;">Three Eras of Evolution</h2>
-            <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-primary); max-width: 800px; margin: 0 auto 3rem;">
                 From website explosion to cloud platforms to autonomous intelligence
             </p>
             <div class="evolution-grid">
                 <div class="era-card">
                     <span class="era-badge era-1">Era 1: 2000s</span>
                     <h3>LAMP Stack</h3>
-                    <h4 style="color: var(--gray-700); font-size: 1.125rem; font-weight: 600;">Website Explosion, Open Source Wins the Web</h4>
+                    <h4 style="color: var(--text-primary); font-size: 1.125rem; font-weight: 600;">Website Explosion, Open Source Wins the Web</h4>
                     <p style="margin-top: 1rem;">
                         Linux, Apache, MySQL, PHP/Perl/Python powered the internet explosion. Open source became mainstream for building websites and web applications.
                     </p>
@@ -1064,7 +1064,7 @@
                 <div class="era-card">
                     <span class="era-badge era-2">Era 2: 2010s</span>
                     <h3>Cloud/SaaS</h3>
-                    <h4 style="color: var(--gray-700); font-size: 1.125rem; font-weight: 600;">Cloud Native, API Economy, Centralized Platforms</h4>
+                    <h4 style="color: var(--text-primary); font-size: 1.125rem; font-weight: 600;">Cloud Native, API Economy, Centralized Platforms</h4>
                     <p style="margin-top: 1rem;">
                         Cloud computing and SaaS rise. Cloud-native architecture, API economy, and centralized platforms enable elastic scaling and global connectivity.
                     </p>
@@ -1072,7 +1072,7 @@
                 <div class="era-card">
                     <span class="era-badge era-3">Era 3: Now</span>
                     <h3>Claw Stack</h3>
-                    <h4 style="color: var(--gray-700); font-size: 1.125rem; font-weight: 600;">Agentic Economy, Autonomous Intelligence, Open Governance</h4>
+                    <h4 style="color: var(--text-primary); font-size: 1.125rem; font-weight: 600;">Agentic Economy, Autonomous Intelligence, Open Governance</h4>
                     <p style="margin-top: 1rem;">
                         The era of autonomous agents. Open governance, self-directed intelligence, and decentralized collaboration. From Hands On to Minds Off.
                     </p>
@@ -1082,7 +1082,7 @@
     </section>
 
     <!-- Claw Stack -->
-    <section id="claw-stack" style="background: var(--gray-50);">
+    <section id="claw-stack" style="background: var(--bg-secondary);">
         <div class="container">
             <h2 style="text-align: center;">What is the Claw Stack?</h2>
             <div class="stack-comparison">
@@ -1122,25 +1122,25 @@
                     <div class="card">
                         <div class="card-icon" style="background: #dbeafe; color: #1e40af;">C</div>
                         <h4>Compute</h4>
-                        <p style="color: var(--gray-700);">GPU/ASIC → Token Production</p>
+                        <p style="color: var(--text-primary);">GPU/ASIC → Token Production</p>
                         <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">High-performance infrastructure for token generation</p>
                     </div>
                     <div class="card">
                         <div class="card-icon" style="background: #e9d5ff; color: #6b21a8;">L</div>
                         <h4>Language Models</h4>
-                        <p style="color: var(--gray-700);">Claude, Gemini, Llama → Inference Engine</p>
+                        <p style="color: var(--text-primary);">Claude, Gemini, Llama → Inference Engine</p>
                         <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">Reasoning and knowledge base</p>
                     </div>
                     <div class="card">
                         <div class="card-icon" style="background: #fef3c7; color: #92400e;">A</div>
                         <h4>Agents</h4>
-                        <p style="color: var(--gray-700);">OpenClaw Runtime → Execution Unit</p>
+                        <p style="color: var(--text-primary);">OpenClaw Runtime → Execution Unit</p>
                         <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">Task management and specialized execution</p>
                     </div>
                     <div class="card">
                         <div class="card-icon" style="background: #d1fae5; color: #065f46;">W</div>
                         <h4>Workflow</h4>
-                        <p style="color: var(--gray-700);">Routing Layer → Decision & Coordination</p>
+                        <p style="color: var(--text-primary);">Routing Layer → Decision & Coordination</p>
                         <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">Orchestration and process management</p>
                     </div>
                 </div>
@@ -1190,14 +1190,14 @@
     </section>
 
     <!-- Architecture -->
-    <section id="architecture" style="background: var(--gray-50);">
+    <section id="architecture" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="badge" style="margin: 0 auto 1.5rem; width: fit-content;">
                 <span class="badge-dot"></span>
                 <span>Architecture</span>
             </div>
             <h2 style="text-align: center;">Complete Agent Stack Architecture</h2>
-            <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-primary); max-width: 800px; margin: 0 auto 3rem;">
                 <strong>Key Insight:</strong> Currently there's no industry-standard organization for the orchestration + governance layer
             </p>
             <table class="architecture-table">
@@ -1278,14 +1278,14 @@
     </section>
 
     <!-- Initiatives -->
-    <section id="initiatives" style="background: var(--gray-50);">
+    <section id="initiatives" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="badge" style="margin: 0 auto 1.5rem; width: fit-content;">
                 <span class="badge-dot"></span>
                 <span>Strategic Initiatives</span>
             </div>
             <h2 style="text-align: center;">Five Core Pillars</h2>
-            <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-primary); max-width: 800px; margin: 0 auto 3rem;">
                 Five core pillars for governing autonomous intelligence
             </p>
             <div class="grid-3">
@@ -1320,7 +1320,7 @@
                     <p>Marketplace for agent capabilities and services, not just software</p>
                 </div>
                 <div class="card" style="border: 2px dashed var(--gray-300);">
-                    <div class="card-icon" style="background: var(--gray-100); color: var(--gray-700);">🔮</div>
+                    <div class="card-icon" style="background: var(--gray-100); color: var(--text-primary);">🔮</div>
                     <h4>More Coming</h4>
                     <p>Additional initiatives for Dark Factory governance, hardware abstraction, and provenance systems</p>
                 </div>
@@ -1471,7 +1471,7 @@
     </section>
 
     <!-- Hardware Evolution -->
-    <section id="hardware" style="background: var(--gray-50);">
+    <section id="hardware" style="background: var(--bg-secondary);">
         <div class="container">
             <h2 style="text-align: center;">Hardware Evolution & Open Standards</h2>
             <div class="grid-3" style="margin-top: 3rem;">
