@@ -640,6 +640,46 @@
             border-color: #475569;
         }
 
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--purple);
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(139, 92, 246, 0.6);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 768px) {
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.25rem;
+            }
+        }
+
         /* Footer */
         footer {
             background: var(--navy);
@@ -702,6 +742,11 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <button class="theme-toggle" id="themeToggle" aria-label="切换深色模式">
+        🌙
+    </button>
+
     <!-- Navigation -->
     <nav>
         <div class="container">
@@ -1420,5 +1465,41 @@
             <p>&copy; 2026 代理开源基金会。保留所有权利。</p>
         </div>
     </footer>
+
+    <script>
+        // Theme toggle functionality
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        
+        // Check for saved theme preference or default to dark mode (AI Dark Factory concept)
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .stack-card, .architecture-table, .governance-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
