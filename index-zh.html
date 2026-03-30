@@ -1501,18 +1501,26 @@
         const html = document.documentElement;
         const themeToggle = document.getElementById('themeToggle');
         
+        console.log('Theme toggle element:', themeToggle);
+        
         if (themeToggle) {
             // Check for saved theme preference or default to dark mode (AI Dark Factory concept)
             const currentTheme = localStorage.getItem('theme') || 'dark';
+            console.log('Current theme:', currentTheme);
             html.setAttribute('data-theme', currentTheme);
             themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
             
             themeToggle.addEventListener('click', () => {
+                console.log('Theme toggle clicked!');
                 const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
                 html.setAttribute('data-theme', theme);
                 localStorage.setItem('theme', theme);
                 themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+                console.log('Switched to:', theme);
             });
+            console.log('Theme toggle initialized successfully');
+        } else {
+            console.error('Theme toggle button not found!');
         }
 
         // Scroll animation observer
