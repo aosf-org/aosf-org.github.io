@@ -1,0 +1,35 @@
+<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="256" height="256" fill="url(#bg)"/>
+  
+  <!-- Stylized "A" for AOSF -->
+  <g stroke="#8b5cf6" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow)">
+    <!-- Left leg -->
+    <line x1="80" y1="200" x2="128" y2="60"/>
+    <!-- Right leg -->
+    <line x1="176" y1="200" x2="128" y2="60"/>
+    <!-- Crossbar -->
+    <line x1="100" y1="140" x2="156" y2="140"/>
+  </g>
+  
+  <!-- Glow overlay -->
+  <g stroke="#a78bfa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6">
+    <line x1="80" y1="200" x2="128" y2="60"/>
+    <line x1="176" y1="200" x2="128" y2="60"/>
+    <line x1="100" y1="140" x2="156" y2="140"/>
+  </g>
+</svg>
