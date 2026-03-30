@@ -38,6 +38,21 @@
             --gray-800: #1f2937;
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            
+            /* Light mode (default) */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--gray-50);
+            --text-primary: var(--gray-700);
+            --text-secondary: var(--navy);
+            --border-color: var(--gray-200);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: var(--navy);
+            --bg-secondary: var(--navy-light);
+            --text-primary: var(--gray-100);
+            --text-secondary: var(--white);
+            --border-color: var(--navy-lighter);
         }
 
         * {
@@ -48,15 +63,16 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--white);
-            color: var(--gray-700);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Typography */
         h1, h2, h3, h4, h5, h6 {
-            color: var(--navy);
+            color: var(--text-secondary);
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 1rem;
@@ -98,6 +114,11 @@
             border-bottom: 1px solid var(--gray-200);
             z-index: 1000;
             padding: 1rem 0;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom-color: var(--navy-lighter);
         }
 
         nav .container {
@@ -268,6 +289,11 @@
             border: 1px solid var(--gray-200);
         }
 
+        [data-theme="dark"] .card {
+            background: var(--navy-light);
+            border-color: var(--navy-lighter);
+        }
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 24px rgba(0,0,0,0.1);
@@ -306,7 +332,7 @@
 
         /* Specific Sections */
         #vision {
-            background: var(--gray-50);
+            background: var(--bg-secondary);
         }
 
         #vision h2 {
@@ -401,7 +427,7 @@
 
         .stack-layer {
             padding: 1rem;
-            background: var(--gray-50);
+            background: var(--bg-secondary);
             border-radius: 8px;
             border-left: 4px solid;
         }
@@ -439,7 +465,7 @@
         }
 
         .architecture-table th {
-            background: var(--gray-50);
+            background: var(--bg-secondary);
             font-weight: 700;
             color: var(--navy);
         }
@@ -449,7 +475,7 @@
         }
 
         .architecture-table tr:hover {
-            background: var(--gray-50);
+            background: var(--bg-secondary);
         }
 
         .highlight {
@@ -890,7 +916,7 @@
     </section>
 
     <!-- Claw Stack -->
-    <section id="claw-stack" style="background: var(--gray-50);">
+    <section id="claw-stack" style="background: var(--bg-secondary);">
         <div class="container">
             <h2 style="text-align: center;">什么是 Claw Stack？</h2>
             <div class="stack-comparison">
@@ -994,7 +1020,7 @@
     </section>
 
     <!-- 架构 -->
-    <section id="architecture" style="background: var(--gray-50);">
+    <section id="architecture" style="background: var(--bg-secondary);">
         <div class="container">
             <h2 style="text-align: center;">完整代理栈架构</h2>
             <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
@@ -1078,7 +1104,7 @@
     </section>
 
     <!-- 倡议 -->
-    <section id="initiatives" style="background: var(--gray-50);">
+    <section id="initiatives" style="background: var(--bg-secondary);">
         <div class="container">
             <h2 style="text-align: center;">AOSF 战略倡议</h2>
             <p style="text-align: center; font-size: 1.125rem; color: var(--gray-700); max-width: 800px; margin: 0 auto 3rem;">
@@ -1267,7 +1293,7 @@
     </section>
 
     <!-- Hardware Evolution -->
-    <section id="hardware" style="background: var(--gray-50);">
+    <section id="hardware" style="background: var(--bg-secondary);">
         <div class="container">
             <h2 style="text-align: center;">硬件演进与开放标准</h2>
             <div class="grid-3" style="margin-top: 3rem;">
